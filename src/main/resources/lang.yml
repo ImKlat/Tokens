@@ -1,0 +1,8 @@
+UTILS:
+  TARGET-NOT-FOUND: "Not found"
+COMMANDS:
+  TOKENS-BALANCE: "&eBalance: &a%TOKENS%"
+  TOKENS-GIVE: "&aNice give %TOKENS% to %TARGET%"
+  TOKENS-PAY: "&aNice give %TOKENS% to %TARGET%"
+  TOKENS-SET: "&aNice give %TOKENS% to %TARGET%"
+  TOKENS-REMOVE: "&aNice give %TOKENS% to %TARGET%"
