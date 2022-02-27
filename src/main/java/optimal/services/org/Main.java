@@ -19,8 +19,15 @@ import java.util.ArrayList;
 public final class Main extends JavaPlugin {
     private ConfigFile mainConfig;
     private ConfigFile langConfig;
+    private ConfigFile shopConfig;
     private CommandManager commandManager;
     private SQLUtil mySQLSetup;
+
+    String hostname = mainConfig.getString("MySQL.HOSTNAME");
+    int port = mainConfig.getInt("MySQL.PORT");;
+    String database = mainConfig.getString("MySQL.DATABASE");;
+    String username = mainConfig.getString("MySQL.USERNAME");;
+    String password = mainConfig.getString("MySQL.PASSWORD");;
 
     @Override
     public void onEnable() {
@@ -34,7 +41,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&r"));
         Bukkit.getConsoleSender().sendMessage(CC.translate("&fStatus: &aEnabled"));
         Bukkit.getConsoleSender().sendMessage(CC.translate("&7&m--------------"));
-        this.mySQLSetup = new SQLUtil("localhost", 3306, "tokens", "root", "");
+        this.mySQLSetup = new SQLUtil(hostname, port, database, username, password);
     }
 
     @Override
@@ -56,6 +63,7 @@ public final class Main extends JavaPlugin {
 
     public void loadConfigs() {
         this.langConfig = new ConfigFile(this, "lang.yml");
+        this.shopConfig = new ConfigFile(this, "shop.yml");
     }
 
     public Connection getMySQl() {

@@ -13,10 +13,3 @@
 # Discord: optimal-services.org/discord| ImKlat#0195 |
 # Twitter: @OptimalConfigs
 #
-
-MySQL:
-  HOSTNAME: "localhost"
-  PORT: 3306
-  DATABASE: "tokens"
-  USERNAME: "root"
-  PASSWORD: ""
