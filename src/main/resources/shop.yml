@@ -13,3 +13,21 @@
 # Discord: optimal-services.org/discord| ImKlat#0195 |
 # Twitter: @OptimalConfigs
 #
+
+SHOP-MENU:
+  TITLE: "&eTokens Shop"
+  SIZE: 27
+  ITEMS:
+    ABILITY:
+      GLOW: true
+      DISPLAYNAME: ""
+      LORE:
+        - ""
+        - ""
+        - ""
+      MATERIAL: ""
+      SLOT: 10
+      PRICE: 10
+      COMMANDS:
+        - ""
+  SUCCESSFUL: ""

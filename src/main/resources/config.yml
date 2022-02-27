@@ -15,8 +15,8 @@
 #
 
 MySQL:
-  HOSTNAME: "localhost"
+  HOSTNAME: 'localhost'
   PORT: 3306
-  DATABASE: "tokens"
-  USERNAME: "root"
-  PASSWORD: ""
+  DATABASE: 'tokens'
+  USERNAME: 'root'
+  PASSWORD: ''

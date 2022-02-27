@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import optimal.services.org.commands.TokensCommand;
 import optimal.services.org.listeners.JoinListener;
+import optimal.services.org.listeners.ShopListener;
 import optimal.services.org.utils.CC;
 import optimal.services.org.utils.SQLUtil;
 import optimal.services.org.utils.command.CommandManager;
@@ -23,12 +24,6 @@ public final class Main extends JavaPlugin {
     private CommandManager commandManager;
     private SQLUtil mySQLSetup;
 
-    String hostname = mainConfig.getString("MySQL.HOSTNAME");
-    int port = mainConfig.getInt("MySQL.PORT");;
-    String database = mainConfig.getString("MySQL.DATABASE");;
-    String username = mainConfig.getString("MySQL.USERNAME");;
-    String password = mainConfig.getString("MySQL.PASSWORD");;
-
     @Override
     public void onEnable() {
         mainConfig = new ConfigFile(this, "config.yml");
@@ -41,7 +36,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&r"));
         Bukkit.getConsoleSender().sendMessage(CC.translate("&fStatus: &aEnabled"));
         Bukkit.getConsoleSender().sendMessage(CC.translate("&7&m--------------"));
-        this.mySQLSetup = new SQLUtil(hostname, port, database, username, password);
+        this.mySQLSetup = new SQLUtil();
     }
 
     @Override
@@ -54,6 +49,7 @@ public final class Main extends JavaPlugin {
     }
 
     public void registerListeners() {
+        new ShopListener();
         new JoinListener();
     }
 

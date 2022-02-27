@@ -6,26 +6,25 @@ package optimal.services.org.utils;
  * Date: 25/2/2022 @ 16:12
  */
 
+import optimal.services.org.Main;
+import optimal.services.org.utils.config.ConfigFile;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLUtil {
 
+ private ConfigFile mainConfig = Main.getInstance().getMainConfig();
+
  private Connection connection;
- private String hostname;
- private int port;
- private String database;
- private String username;
- private String password;
+ String Chostname = mainConfig.getString("MySQL.HOSTNAME");
+ int Cport = mainConfig.getInt("MySQL.PORT");
+ String Cdatabase = mainConfig.getString("MySQL.DATABASE");
+ String Cusername = mainConfig.getString("MySQL.USERNAME");
+ String Cpassword = mainConfig.getString("MySQL.PASSWORD");
 
- public SQLUtil(String hostname, int port, String database, String username, String password) {
-  this.hostname = hostname;
-  this.port = port;
-  this.database = database;
-  this.username = username;
-  this.password = password;
-
+ public SQLUtil() {
   try {
    synchronized (this) {
     if(connection != null && !connection.isClosed()) {
@@ -33,7 +32,7 @@ public class SQLUtil {
      return;
     }
     Class.forName("com.mysql.jdbc.Driver");
-    this.connection = (DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.username, this.password));
+    this.connection = (DriverManager.getConnection("jdbc:mysql://" + this.Chostname + ":" + this.Cport + "/" + this.Cdatabase, this.Cusername, this.Cpassword));
 
     CC.log("&aSuccesfully, The MySQL is now connected.");
    }

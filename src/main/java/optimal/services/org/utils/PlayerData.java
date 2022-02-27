@@ -5,9 +5,6 @@ package optimal.services.org.utils;
  * Project: Tokens-Hooker-MySQL
  * Date: 25/2/2022 @ 16:56
  */
-
-import org.bukkit.event.EventHandler;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

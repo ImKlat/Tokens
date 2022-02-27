@@ -7,6 +7,7 @@ package optimal.services.org.commands;
  */
 
 import optimal.services.org.Main;
+import optimal.services.org.listeners.ShopListener;
 import optimal.services.org.utils.CC;
 import optimal.services.org.utils.PlayerData;
 import optimal.services.org.utils.command.BaseCommand;
@@ -156,6 +157,21 @@ public class TokensCommand extends BaseCommand implements Listener {
                     PlayerData.giveTokens(Main.getInstance().getMySQl(), player.getUniqueId(), actualTokens - amount);
                     PlayerData.giveTokens(Main.getInstance().getMySQl(), target.getUniqueId(), tActualTokens + amount);
                     player.sendMessage(CC.translate(lang.getString("COMMANDS.TOKENS-PAY").replaceAll("%TOKENS%", Integer.toString(amount)).replaceAll("%PLAYER%", player.getName()).replaceAll("%TARGET%", target.getName())));
+                    break;
+                }
+            case "shop":
+                if (!(player.hasPermission("tokens.shop"))) {
+                    player.sendMessage(CC.translate("&cNo permission."));
+                    return;
+                }
+
+                if (args.length > 2) {
+                    player.sendMessage(CC.translate("&cUsage: /tokens shop "));
+                    return;
+                }
+
+                if (args.length == 1) {
+                    player.openInventory(ShopListener.getShop());
                     break;
                 }
         }

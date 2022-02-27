@@ -16,6 +16,7 @@
 
 UTILS:
   TARGET-NOT-FOUND: "Not found"
+  NOT-BALANCE: ""
 COMMANDS:
   TOKENS-BALANCE: "&eBalance: &a%TOKENS%"
   TOKENS-GIVE: "&aNice give %TOKENS% to %TARGET%"
