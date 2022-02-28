@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -49,14 +50,17 @@ public class ShopListener implements Listener {
 
    materialMeta.setDisplayName(CC.translate(shop.getString("SHOP-MENU.ITEMS." + item + ".DISPLAYNAME")));
 
-   List<String> lore = new ArrayList<>();
-   lore.add(CC.translate(shop.getString("SHOP-MENU.ITEMS." + item + ".LORE")));
+   List<String> lore = new ArrayList<String>();
+   lore.clear();
+   lore.add(String.valueOf(CC.translate(shop.getStringList("SHOP-MENU.ITEMS." + item + ".LORE"))));
 
    materialMeta.setLore(lore);
+
    if (shop.getBoolean("SHOP-MENU.ITEMS." + item + ".GLOW")) {
     materialMeta.addEnchant(Enchantment.LUCK, 1, false);
     materialMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
    }
+
    materialItem.setItemMeta(materialMeta);
    material = materialItem;
    shopInv.setItem(shop.getInt("SHOP-MENU.ITEMS." + item + ".SLOT") - 1, material);
@@ -76,13 +80,13 @@ public class ShopListener implements Listener {
    for (String item : section.getKeys(false)) {
     int price = shop.getInt("SHOP-MENU.ITEMS." + item + ".PRICE");
     if (slot == shop.getInt("SHOP-MENU.ITEMS." + item + ".SLOT") - 1) {
-     if (shop.getInt("SHOP-MENU.ITEMS." + item + ".PRICE") <= PlayerData.getTokens(Main.getInstance().getMySQl(), uuid)) {
+     if (shop.getInt("SHOP-MENU.ITEMS." + item + ".PRICE") > PlayerData.getTokens(Main.getInstance().getMySQl(), uuid)) {
       p.sendMessage(CC.translate(lang.getString("UTILS.NOT-BALANCE")));
       return;
      }
       PlayerData.giveTokens(Main.getInstance().getMySQl(), p.getUniqueId(), actualTokens - price);
      for (String string : shop.getStringList("SHOP-MENU.ITEMS." + item + ".COMMANDS")) {
-      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), string.replaceAll("%PLAYER%", p.getName()));
+      Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), string.replaceAll("%PLAYER%", p.getName()));
      }
       p.sendMessage(CC.translate(shop.getString("SHOP-MENU.SUCCESSFUL").replaceAll("%MATERIAL%", shop.getString("SHOP-MENU.ITEMS." + item + ".DISPLAYNAME")).replaceAll("%AMOUNT%", Integer.toString(shop.getInt("SHOP-MENU.ITEMS." + item + ".AMOUNT")))));
     }
