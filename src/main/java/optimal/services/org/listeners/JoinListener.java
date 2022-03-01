@@ -19,12 +19,13 @@ import java.util.UUID;
 public class JoinListener implements Listener {
 
     private JoinListener plugin;
+
     public JoinListener() {
         Bukkit.getServer().getPluginManager().registerEvents(this, Main.getInstance());
     }
 
     @EventHandler
-    public void onJoin (PlayerJoinEvent e) {
+    public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         UUID uuid = player.getUniqueId();
         if (!PlayerData.hasPlayedBefore(Main.getInstance().getMySQl(), uuid)) {

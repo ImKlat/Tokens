@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class SQLUtil {
 
- private ConfigFile mainConfig = Main.getInstance().getMainConfig();
+ private final ConfigFile mainConfig = Main.getInstance().getMainConfig();
 
  private Connection connection;
  String Chostname = mainConfig.getString("MySQL.HOSTNAME");

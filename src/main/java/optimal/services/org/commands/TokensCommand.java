@@ -21,7 +21,7 @@ import org.bukkit.event.Listener;
 import java.util.UUID;
 
 public class TokensCommand extends BaseCommand implements Listener {
-    private ConfigFile lang = Main.getInstance().getLangConfig();
+    private final ConfigFile lang = Main.getInstance().getLangConfig();
 
     @Command(name = "tokens")
 
@@ -30,10 +30,12 @@ public class TokensCommand extends BaseCommand implements Listener {
         Player player = command.getPlayer();
         UUID uuid = player.getUniqueId();
         String[] args = command.getArgs();
+
         if (args.length == 0) {
             player.sendMessage(CC.translate(lang.getString("COMMANDS.TOKENS-BALANCE").replaceAll("%TOKENS%", Integer.toString(PlayerData.getTokens(Main.getInstance().getMySQl(), uuid))).replaceAll("%PLAYER%", player.getName())));
             return;
         }
+
         switch (args[0]) {
             default:
                 CC.sendHelp(player);
@@ -68,7 +70,7 @@ public class TokensCommand extends BaseCommand implements Listener {
                     PlayerData.giveTokens(Main.getInstance().getMySQl(), target.getUniqueId(), actualTokens + amount);
                     player.sendMessage(CC.translate(lang.getString("COMMANDS.TOKENS-GIVE").replaceAll("%TOKENS%", Integer.toString(amount)).replaceAll("%PLAYER%", player.getName()).replaceAll("%TARGET%", target.getName())));
                     break;
-            }
+                }
             case "remove":
                 if (!(player.hasPermission("tokens.remove"))) {
                     player.sendMessage(CC.translate("&cNo permission."));
@@ -152,10 +154,12 @@ public class TokensCommand extends BaseCommand implements Listener {
                         player.sendMessage(CC.translate("&cUsage: /tokens pay <player> <amount>"));
                         return;
                     }
+
                     int tActualTokens = PlayerData.getTokens(Main.getInstance().getMySQl(), target.getUniqueId());
-                    int actualTokens  = PlayerData.getTokens(Main.getInstance().getMySQl(), player.getUniqueId());
+                    int actualTokens = PlayerData.getTokens(Main.getInstance().getMySQl(), player.getUniqueId());
                     PlayerData.giveTokens(Main.getInstance().getMySQl(), player.getUniqueId(), actualTokens - amount);
                     PlayerData.giveTokens(Main.getInstance().getMySQl(), target.getUniqueId(), tActualTokens + amount);
+
                     player.sendMessage(CC.translate(lang.getString("COMMANDS.TOKENS-PAY").replaceAll("%TOKENS%", Integer.toString(amount)).replaceAll("%PLAYER%", player.getName()).replaceAll("%TARGET%", target.getName())));
                     break;
                 }
